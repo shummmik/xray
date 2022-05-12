@@ -4,7 +4,7 @@ import torch.nn.functional as F
 
 
 class UnetConv(nn.Module):
-    def __init__(self, in_channels, out_features):
+    def __init__(self, in_channels: int, out_features: int) -> None:
         super().__init__()
         self.conv1 = nn.Conv2d(
             in_channels=in_channels,
@@ -23,14 +23,14 @@ class UnetConv(nn.Module):
         )
         self.batchn2 = nn.BatchNorm2d(out_features)
 
-    def forward(self, x):
+    def forward(self, x) -> torch.Tensor:
         x = F.relu(self.batchn1(self.conv1(x)))
         x = F.relu(self.batchn2(self.conv2(x)))
         return x
 
 
 class Unet(nn.Module):
-    def __init__(self, in_channels=1, out_channels=1, init_features=32):
+    def __init__(self, in_channels=1, out_channels=1, init_features=32) -> None:
         super().__init__()
 
         self.down_conv1 = UnetConv(in_channels, init_features)  # 32
@@ -98,7 +98,7 @@ class Unet(nn.Module):
 
         self.softnmax = nn.Softmax(dim=1)
 
-    def forward(self, x):
+    def forward(self, x) -> torch.Tensor:
         down1 = self.down_conv1(x)
         down2 = self.down_conv2(self.pool1(down1))
         down3 = self.down_conv3(self.pool2(down2))
