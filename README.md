@@ -14,6 +14,8 @@ The preliminary data processing has already been carried out and saved to the da
 1. download data [XRAY](https://www.kaggle.com/datasets/nikhilpandey360/chest-xray-masks-and-labels ) and put with the data directory in the root of the repository.
 2. uncomment part of the code for data preprocessing
 
+The data.pickle and model.pt files is large. To download them, enter  `git lfs pull --include="data.pickle"`, `git lfs pull --include="model.pt"`
+
 To launch the application, you must:
 1. create a docker image `docker build -t xray .`
 2. launch the container `docker run -p 9999:8501 -d xray`
